@@ -40,70 +40,70 @@ import logging
 # logger.error('Error message')
 # logger.critical('Critical message')
 
-# logging.basicConfig(level=logging.DEBUG,
-#                     format="%(asctime)s - %(name)s - %(levelname)s - %(lineno)d - %(message)s",
-#                     filename="application.log",
-#                     filemode="w",
-#                     encoding="utf-8")
-#
-# auth_logger = logging.getLogger("app.auth")
-# db_logger = logging.getLogger("app.db")
-# main_logger = logging.getLogger("app.main")
-#
-# data = {}
-#
-#
-# def login(username, password):
-#     auth_logger.info(f'Попытка входа для пользователя: {username}')
-#
-#     if username == "admin" and password == "qwerty":
-#         auth_logger.info("Пользователь авторизован")
-#         return True
-#     else:
-#         auth_logger.warning('Неудачная попытка входа')
-#         return False
-#
-#
-# def insert(key, value):
-#     db_logger.info(f"Вставка данных: {key} = {value}")
-#     data[key] = value
-#
-#
-# def select(key):
-#     value = data.get(key)
-#
-#     if value:
-#         db_logger.info(f"Получены данные: {key} = {value}")
-#     else:
-#         db_logger.warning(f"Данные с ключом {key} не найдены")
-#     return value
-#
-#
-# def main():
-#     try:
-#         # Записываем сообщение о запуске приложения
-#         main_logger.info('Запуск приложения')
-#
-#         # Попытка авторизации
-#         user_logged_in = login("admin", "qwerty")
-#
-#         if user_logged_in:
-#             # Если авторизация успешна, работаем с базой данных
-#             insert("user_id", "12345")
-#             select("user_id")
-#             select(non_existing_id)
-#         else:
-#             # Если авторизация не успешна, записываем предупреждение и прекращаем работу
-#             main_logger.warning("Неудачная авторизация. Прекращение работы")
-#
-#     except Exception as e:
-#         # Записываем ошибку, если произошло исключение во время выполнения программы
-#         main_logger.error(f'Произошла ошибка: {e}', exc_info=True)
-#
-#     finally:
-#         # Записываем сообщение о завершении работы приложения
-#         main_logger.info('Завершение работы приложения')
-#
-# if __name__ == "__main__":
-#     main()
+logging.basicConfig(level=logging.DEBUG,
+                    format="%(asctime)s - %(name)s - %(levelname)s - %(lineno)d - %(message)s",
+                    filename="application.log",
+                    filemode="w",
+                    encoding="utf-8")
+
+auth_logger = logging.getLogger("app.auth")
+db_logger = logging.getLogger("app.db")
+main_logger = logging.getLogger("app.main")
+
+data = {}
+
+
+def login(username, password):
+    auth_logger.info(f'Попытка входа для пользователя: {username}')
+
+    if username == "admin" and password == "qwerty":
+        auth_logger.info("Пользователь авторизован")
+        return True
+    else:
+        auth_logger.warning('Неудачная попытка входа')
+        return False
+
+
+def insert(key, value):
+    db_logger.info(f"Вставка данных: {key} = {value}")
+    data[key] = value
+
+
+def select(key):
+    value = data.get(key)
+
+    if value:
+        db_logger.info(f"Получены данные: {key} = {value}")
+    else:
+        db_logger.warning(f"Данные с ключом {key} не найдены")
+    return value
+
+
+def main():
+    try:
+        # Записываем сообщение о запуске приложения
+        main_logger.info('Запуск приложения')
+
+        # Попытка авторизации
+        user_logged_in = login("admin", "qwerty")
+
+        if user_logged_in:
+            # Если авторизация успешна, работаем с базой данных
+            insert("user_id", "12345")
+            select("user_id")
+            select(non_existing_id)
+        else:
+            # Если авторизация не успешна, записываем предупреждение и прекращаем работу
+            main_logger.warning("Неудачная авторизация. Прекращение работы")
+
+    except Exception as e:
+        # Записываем ошибку, если произошло исключение во время выполнения программы
+        main_logger.error(f'Произошла ошибка: {e}', exc_info=True)
+
+    finally:
+        # Записываем сообщение о завершении работы приложения
+        main_logger.info('Завершение работы приложения')
+
+if __name__ == "__main__":
+    main()
 
