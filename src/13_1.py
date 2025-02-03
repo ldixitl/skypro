@@ -3,7 +3,6 @@ import json
 
 import pandas as pd
 
-
 # with open("Книга1.csv") as file:
 #     reader = csv.reader(file)
 #     for row in reader:
