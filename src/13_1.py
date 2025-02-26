@@ -286,9 +286,11 @@ titanic_passengers = pd.read_csv("../data/titanic.csv")
 #     class_passengers = dataframe.groupby("Pclass").Fare.mean()
 #     return json.dumps(class_passengers.to_dict())
 
+
 def get_survived(dataframe: pd.DataFrame) -> int:
-    survived_df = dataframe[dataframe['Survived'] == 1]
-    survived_df.to_json('../data/survived.json', indent=4, orient='records')
+    survived_df = dataframe[dataframe["Survived"] == 1]
+    survived_df.to_json("../data/survived.json", indent=4, orient="records")
     return survived_df.count()
+
 
 print(get_survived(titanic_passengers))

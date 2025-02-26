@@ -2,8 +2,9 @@ import json
 import os
 from unittest.mock import patch
 
-from dotenv import load_dotenv
 import requests
+from dotenv import load_dotenv
+
 # import datetime
 #
 # date_string = "08-03-2022 15:45:00"

@@ -1,6 +1,5 @@
 import logging
 
-
 # named_logger = logging.getLogger("mylogger")
 # named_logger.setLevel(logging.WARNING)
 #
@@ -40,11 +39,13 @@ import logging
 # logger.error('Error message')
 # logger.critical('Critical message')
 
-logging.basicConfig(level=logging.DEBUG,
-                    format="%(asctime)s - %(name)s - %(levelname)s - %(lineno)d - %(message)s",
-                    filename="application.log",
-                    filemode="w",
-                    encoding="utf-8")
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(lineno)d - %(message)s",
+    filename="application.log",
+    filemode="w",
+    encoding="utf-8",
+)
 
 auth_logger = logging.getLogger("app.auth")
 db_logger = logging.getLogger("app.db")
@@ -54,13 +55,13 @@ data = {}
 
 
 def login(username, password):
-    auth_logger.info(f'Попытка входа для пользователя: {username}')
+    auth_logger.info(f"Попытка входа для пользователя: {username}")
 
     if username == "admin" and password == "qwerty":
         auth_logger.info("Пользователь авторизован")
         return True
     else:
-        auth_logger.warning('Неудачная попытка входа')
+        auth_logger.warning("Неудачная попытка входа")
         return False
 
 
@@ -82,7 +83,7 @@ def select(key):
 def main():
     try:
         # Записываем сообщение о запуске приложения
-        main_logger.info('Запуск приложения')
+        main_logger.info("Запуск приложения")
 
         # Попытка авторизации
         user_logged_in = login("admin", "qwerty")
@@ -98,12 +99,12 @@ def main():
 
     except Exception as e:
         # Записываем ошибку, если произошло исключение во время выполнения программы
-        main_logger.error(f'Произошла ошибка: {e}', exc_info=True)
+        main_logger.error(f"Произошла ошибка: {e}", exc_info=True)
 
     finally:
         # Записываем сообщение о завершении работы приложения
-        main_logger.info('Завершение работы приложения')
+        main_logger.info("Завершение работы приложения")
+
 
 if __name__ == "__main__":
     main()
-

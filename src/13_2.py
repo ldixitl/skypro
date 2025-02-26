@@ -278,7 +278,7 @@ from collections import Counter, defaultdict, deque, namedtuple
 #     surve_customer(queue)
 #     surve_customer(queue)
 #
-Point = namedtuple('Point', ['x', 'y'])
+Point = namedtuple("Point", ["x", "y"])
 # fruits = ['apple', 'banana', 'cherry']
 # print(random.choice(fruits))
 # print(random.choice(fruits))
@@ -378,21 +378,21 @@ def count_emails(input_file: str, output_file: str):
     with open(input_file) as access_file:
         data_from_file = access_file.read()
 
-    pattern = r'\b[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+\b'
+    pattern = r"\b[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+\b"
     email_list = re.findall(pattern, data_from_file)
 
-    domains = Counter(item.split('@')[1] for item in email_list)
+    domains = Counter(item.split("@")[1] for item in email_list)
 
-    result = {'total_count': len(email_list), 'domains': {}}
+    result = {"total_count": len(email_list), "domains": {}}
 
     for domain, count in domains.items():
-        domain_emails = [email for email in email_list if email.split('@')[1] == domain]
+        domain_emails = [email for email in email_list if email.split("@")[1] == domain]
 
-        result['domains'][domain] = {'count': count, 'emails': domain_emails}
+        result["domains"][domain] = {"count": count, "emails": domain_emails}
 
-    with open(output_file, 'w') as of:
+    with open(output_file, "w") as of:
         json.dump(result, of, indent=4)
 
 
-if __name__ == '__main__':
-    count_emails('../logs/access.log', '../data/result.json')
+if __name__ == "__main__":
+    count_emails("../logs/access.log", "../data/result.json")
