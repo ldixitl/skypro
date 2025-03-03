@@ -6,12 +6,20 @@ class Task:
     description: str
     status: str
     created_at: str
+    run_time: int
 
-    def __init__(self, name, description, status="Ожидает старта", created_at=None):
+    def __init__(self, name, description, status="Ожидает старта", created_at=None, run_time=0):
         self.name = name
         self.description = description
         self.status = status
         self.__created_at = created_at if created_at else datetime.today().strftime("%d.%m.%Y")
+        self.run_time = run_time
+
+    def __str__(self):
+        return f"{self.name}, Статус выполнения: {self.status}, Дата создания: {self.created_at}"
+
+    def __add__(self, other):
+        return self.run_time + other.run_time
 
     @classmethod
     def new_task(cls, name, description, status="Ожидает старта", created_at=None):
@@ -30,7 +38,7 @@ class Task:
 
 
 if __name__ == "__main__":
-    task = Task("Купить огурцы", "Купить огурцы для салата")
+    task = Task("Купить огурцы", "Купить огурцы для салата", run_time=60)
     print(task.name)
     print(task.description)
     print(task.status)
@@ -46,3 +54,5 @@ if __name__ == "__main__":
     print(task2.created_at)
     task2.created_at = "01.03.2025"
     print(task2.created_at)
+
+    print(task + task2)
