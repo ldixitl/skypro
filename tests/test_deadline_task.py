@@ -1,5 +1,6 @@
 import pytest
 
+
 def test_deadline_task_init(task_deadline1):
     assert task_deadline1.name == "Купить перец"
     assert task_deadline1.description == "Купить перец для салата"

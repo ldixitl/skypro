@@ -72,4 +72,3 @@ for emp_obj in (emp_1, dev_1, exm1):
 #
 # emp = JavaDeveloper()
 # emp.work()
-
