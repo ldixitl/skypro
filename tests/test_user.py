@@ -1,5 +1,7 @@
 import pytest
 
+from src.task import Task
+
 
 def test_user_init(first_user, second_user):
     assert first_user.username == "User"
@@ -48,3 +50,24 @@ def test_task_iterator(task_iterator):
 def test_user_task_list_setter_periodic(first_user, task_periodic1):
     first_user.task_list = task_periodic1
     assert first_user.task_in_list[-1].name == "Купить огурцы"
+
+
+def test_middle_runtime(first_user, user_without_tasks):
+    assert first_user.middle_task_runtime() == 50
+    assert user_without_tasks.middle_task_runtime() == 0
+
+
+def test_custom_exception(capsys, first_user):
+    assert len(first_user.task_in_list) == 2
+
+    task_add = Task("Купить перец", "Купить перец для салата", created_at="28.02.2025")
+    first_user.task_list = task_add
+    message = capsys.readouterr()
+    assert message.out.strip().split("\n")[-2] == "Нельзя задать задачу с нулевым временем выполнения."
+    assert message.out.strip().split("\n")[-1] == "Обработка добавления задачи завершена."
+
+    task_add = Task("Купить перец", "Купить перец для салата", created_at="28.02.2025", run_time=50)
+    first_user.task_list = task_add
+    message = capsys.readouterr()
+    assert message.out.strip().split("\n")[-2] == "Задача добавлена успешно."
+    assert message.out.strip().split("\n")[-1] == "Обработка добавления задачи завершена."

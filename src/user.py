@@ -1,3 +1,4 @@
+from src.exceptions import ZeroRunTimeTask
 from src.task import Task
 
 
@@ -36,8 +37,17 @@ class User:
     @task_list.setter
     def task_list(self, task: Task):
         if isinstance(task, Task):
-            self.__task_list.append(task)
-            User.all_tasks_count += 1
+            try:
+                if task.run_time == 0:
+                    raise ZeroRunTimeTask("Нельзя задать задачу с нулевым временем выполнения.")
+            except ZeroRunTimeTask as e:
+                print(str(e))
+            else:
+                self.__task_list.append(task)
+                User.all_tasks_count += 1
+                print("Задача добавлена успешно.")
+            finally:
+                print("Обработка добавления задачи завершена.")
         else:
             raise TypeError
 
@@ -45,12 +55,18 @@ class User:
     def task_in_list(self):
         return self.__task_list
 
+    def middle_task_runtime(self):
+        try:
+            return sum([task.run_time for task in self.__task_list]) / len(self.__task_list)
+        except ZeroDivisionError:
+            return 0
+
 
 if __name__ == "__main__":
-    task1 = Task("Купить огурцы", "Купить огурцы для салата")
-    task2 = Task("Купить помидоры", "Купить помидоры для салата")
-    task3 = Task("Купить лук", "Купить лук для салата")
-    task4 = Task("Купить перец", "Купить перец для салата")
+    task1 = Task("Купить огурцы", "Купить огурцы для салата", run_time=30)
+    task2 = Task("Купить помидоры", "Купить помидоры для салата", run_time=50)
+    task3 = Task("Купить лук", "Купить лук для салата", run_time=10)
+    task4 = Task("Купить перец", "Купить перец для салата", run_time=60)
 
     user = User("User", "user@mail.ru", "User", "Userov", [task1, task2, task3, task4])
 
@@ -63,10 +79,19 @@ if __name__ == "__main__":
     print(user.users_count)
     print(User.all_tasks_count)
 
-    task5 = Task("Купить перец", "Купить перец для салата")
-    user.task_list = task5
+    # task5 = Task("Купить перец", "Купить перец для салата")
+    # user.task_list = task5
 
     print(user.task_list)
     print(User.all_tasks_count)
 
     print(user)
+
+    print(user.middle_task_runtime())
+
+    user2 = User("User", "user@mail.ru", "User", "Userov")
+
+    print(user2.middle_task_runtime())
+
+    task5 = Task("Купить перец", "Купить перец для салата", run_time=50)
+    user.task_list = task5
